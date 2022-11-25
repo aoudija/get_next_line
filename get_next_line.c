@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:32:26 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/25 10:31:35 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/25 11:15:58 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ char	*get_next_line(int fd)
 		i = read(fd, s, BUFFER_SIZE);
 		s[i] = 0;
 		t = ft_strjoin(t, s);
+		if (strchr(s, '\n') != 0)
+			break ;
 	}
 	while (t[i] && t[i] != '\n')
 		i++;
@@ -51,7 +53,7 @@ int	main(void)
 	i = 0;
 	fd = open("text.txt", O_RDWR);
 	printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
 }
