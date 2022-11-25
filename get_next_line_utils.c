@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:27:10 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/22 23:27:06 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/24 12:25:54 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,26 +58,6 @@ size_t	ft_strlcat(char *dst, const char *src, size_t n)
 	return (d + ft_strlen(src));
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
-{
-	int		len;
-	char	*sj;
-	int		d;
-	int		s;
-
-	if (!s1 || !s2)
-		return (NULL);
-	d = ft_strlen(s1);
-	s = ft_strlen(s2);
-	len = d + s;
-	sj = (char *)malloc(len + 1);
-	if (sj == NULL)
-		return (NULL);
-	ft_strlcpy(sj, s1, d + 1);
-	ft_strlcat(sj, s2, len + 1);
-	return (sj);
-}
-
 char	*ft_strdup(const char *s1)
 {
 	int		i;
@@ -94,6 +74,29 @@ char	*ft_strdup(const char *s1)
 	}
 	s2[i] = 0;
 	return (s2);
+}
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	int		len;
+	char	*sj;
+	int		d;
+	int		s;
+
+	if (!s1 && !s2)
+		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
+	d = ft_strlen(s1);
+	s = ft_strlen(s2);
+	len = d + s;
+	sj = (char *)malloc(len + 1);
+	if (sj == NULL)
+		return (NULL);
+	ft_strlcpy(sj, s1, d + 1);
+	ft_strlcat(sj, s2, len + 1);
+	return (sj);
 }
 
 char	*ft_optimize(const char *s, unsigned int start, char *sub, size_t len)

@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:32:26 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/22 23:39:40 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/25 10:31:35 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,30 @@
 
 char	*get_next_line(int fd)
 {
-	char	*s;
-	char	*t;
-	char	*b;
-	int		i;
-	int		j;
+	char		*s;
+	static char	*t;
+	char		*b;
+	int			i;
 
-	i = 0;
-	j = 0;
-	s = malloc(1);
-	while (read(fd, s, 1))
+	i = 1;
+	s = malloc(BUFFER_SIZE + 1);
+	while (i)
+	{
+		i = read(fd, s, BUFFER_SIZE);
+		s[i] = 0;
 		t = ft_strjoin(t, s);
-	while (i < BUFFER_SIZE - 1 && t[i] != '\n')
+	}
+	while (t[i] && t[i] != '\n')
 		i++;
-	b = ft_substr(t, 0, i);
+	b = malloc(i + 1);
+	i = 0;
+	while (t[i] != '\n' && t[i])
+	{
+		b[i] = t[i];
+		i++;
+	}
+	b[i] = '\n';
+	t = ft_substr(t, i + 1, ft_strlen(t) - i);
 	return (b);
 }
 
@@ -40,6 +50,8 @@ int	main(void)
 
 	i = 0;
 	fd = open("text.txt", O_RDWR);
-	printf("fd = %d\n", fd);
-	printf("%s\n", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	// printf("%s", get_next_line(fd));
+	// printf("%s", get_next_line(fd));
+	// printf("%s", get_next_line(fd));
 }
