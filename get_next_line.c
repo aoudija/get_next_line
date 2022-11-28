@@ -6,12 +6,11 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:32:26 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/25 11:15:58 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/28 15:59:22 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "get_next_line_utils.c"
 
 char	*get_next_line(int fd)
 {
@@ -28,8 +27,12 @@ char	*get_next_line(int fd)
 		s[i] = 0;
 		t = ft_strjoin(t, s);
 		if (strchr(s, '\n') != 0)
+		{
+			free(s);
 			break ;
+		}
 	}
+	i = 0;
 	while (t[i] && t[i] != '\n')
 		i++;
 	b = malloc(i + 1);
@@ -53,7 +56,5 @@ int	main(void)
 	i = 0;
 	fd = open("text.txt", O_RDWR);
 	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
-	printf("%s", get_next_line(fd));
+	// printf("%s", get_next_line(fd));
 }
