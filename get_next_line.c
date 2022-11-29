@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:32:26 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/28 15:59:22 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/29 11:59:37 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,30 @@ char	*get_next_line(int fd)
 	int			i;
 
 	i = 1;
-	s = malloc(BUFFER_SIZE + 1);
+	if (BUFFER_SIZE > 2147483647)
+		return (NULL);
+	else if (BUFFER_SIZE == 2147483647)
+		s = malloc(BUFFER_SIZE);
+	else
+		s = malloc(BUFFER_SIZE + 1);
+	if (!s)
+		return (NULL);
 	while (i)
 	{
 		i = read(fd, s, BUFFER_SIZE);
+		if (i == -1)
+		{
+			free(s);
+			return (NULL);
+		}
 		s[i] = 0;
 		t = ft_strjoin(t, s);
-		if (strchr(s, '\n') != 0)
+		if (!t)
+		{
+			free(s);
+			return (NULL);
+		}
+		if (ft_strchr(s, '\n') != 0)
 		{
 			free(s);
 			break ;
@@ -36,6 +53,11 @@ char	*get_next_line(int fd)
 	while (t[i] && t[i] != '\n')
 		i++;
 	b = malloc(i + 1);
+	if (!b)
+	{
+		free(t);
+		return (NULL);
+	}
 	i = 0;
 	while (t[i] != '\n' && t[i])
 	{
@@ -43,18 +65,19 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	b[i] = '\n';
+	b[i + 1] = 0;
 	t = ft_substr(t, i + 1, ft_strlen(t) - i);
+	if (!t)
+	{
+		free(b);
+		return (NULL);
+	}
 	return (b);
 }
 
-int	main(void)
+int main()
 {
-	int		fd;
-	char	*s;
-	int		i;
-
-	i = 0;
-	fd = open("text.txt", O_RDWR);
-	printf("%s", get_next_line(fd));
-	// printf("%s", get_next_line(fd));
+	int fd = open("text.txt",O_RDWR);
+	printf("%d\n",fd);
+	printf("%s",get_next_line(fd));
 }

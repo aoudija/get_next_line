@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:27:10 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/24 12:25:54 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/29 10:12:25 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,4 +134,19 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (sub == NULL)
 		return (NULL);
 	return (ft_optimize(s, start, sub, len));
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	c = (char) c;
+	while (i <= ft_strlen(s))
+	{
+		if (s[i] == c)
+			return ((char *)s + i);
+		i++;
+	}
+	return (NULL);
 }
