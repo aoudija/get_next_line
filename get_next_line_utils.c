@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:27:10 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/30 16:10:11 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/30 21:01:21 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,10 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	if (s == 0)
 		return (0);
 	if (start >= ft_strlen(s))
+	{
+		free(s);
 		return (ft_strdup(""));
+	}
 	if (len < (ft_strlen(s) - start))
 		sub = malloc(len + 1);
 	else
@@ -138,7 +141,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	return (ft_optimize(s, start, sub, len));
 }
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strchr(char *s, int c)
 {
 	size_t	i;
 

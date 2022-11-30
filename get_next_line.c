@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:32:26 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/30 16:10:21 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/30 21:09:04 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	while (i)
 	{
-		s = malloc(BUFFER_SIZE + 1);
 		i = read(fd, s, BUFFER_SIZE);
 		if (i == -1)
 		{
@@ -48,6 +47,8 @@ char	*get_next_line(int fd)
 	i = 0;
 	while (t[i] && t[i] != '\n')
 		i++;
+	if (i == 0)
+		return (NULL);
 	b = malloc(i + 1);
 	if (!b)
 	{
@@ -71,13 +72,16 @@ char	*get_next_line(int fd)
 	return (b);
 }
 
-int main()
-{
-	int fd = open("text.txt",O_RDWR);
-	char *s;
-	s = get_next_line(fd);
-	printf("%s", s);
-	free(s);
-	// printf("%s",get_next_line(fd));
-	while (1);
-}
+// int main()
+// {
+// 	int fd = open("text.txt",O_RDWR);
+// 	char *s;
+// 	s = get_next_line(fd);
+// 	while (s)
+// 	{
+// 		printf("%s",s);
+// 		free(s);
+// 		s = get_next_line(fd);
+// 	}
+// 	while (1);
+// }
