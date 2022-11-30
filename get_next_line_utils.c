@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:27:10 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/30 08:57:39 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/11/30 16:10:11 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t n)
 	return (d + ft_strlen(src));
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	int		i;
 	char	*s2;
@@ -75,7 +75,7 @@ char	*ft_strdup(const char *s1)
 	s2[i] = 0;
 	return (s2);
 }
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		len;
 	char	*sj;
@@ -96,10 +96,11 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	ft_strlcpy(sj, s1, d + 1);
 	ft_strlcat(sj, s2, len + 1);
+	free(s1);
 	return (sj);
 }
 
-char	*ft_optimize(const char *s, unsigned int start, char *sub, size_t len)
+char	*ft_optimize(char *s, unsigned int start, char *sub, size_t len)
 {
 	size_t	i;
 	size_t	j;
@@ -116,10 +117,11 @@ char	*ft_optimize(const char *s, unsigned int start, char *sub, size_t len)
 		i++;
 	}
 	sub[j] = 0;
+	free(s);
 	return (sub);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*sub;
 
