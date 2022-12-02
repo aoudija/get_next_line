@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/19 13:32:26 by aoudija           #+#    #+#             */
-/*   Updated: 2022/12/02 19:24:22 by aoudija          ###   ########.fr       */
+/*   Created: 2022/12/02 20:04:34 by aoudija           #+#    #+#             */
+/*   Updated: 2022/12/02 20:52:35 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *str)
 {
@@ -39,7 +39,7 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_read(int fd, char *buffer, char *t)
+char	*ft_read(int fd, char *buffer, char **t)
 {
 	int	i;
 
@@ -48,79 +48,80 @@ char	*ft_read(int fd, char *buffer, char *t)
 	{
 		i = read(fd, buffer, BUFFER_SIZE);
 		if (i == -1)
-			return (free(t), NULL);
+			return (free(t[fd]), NULL);
 		buffer[i] = 0;
-		t = ft_strjoin(t, buffer);
-		if (!t)
+		t[fd] = ft_strjoin(t[fd], buffer);
+		if (!t[fd])
 			return (NULL);
 		if (ft_strchr(buffer, '\n') != 0)
 			break ;
 	}
-	if (t[0] == 0)
+	if (t[fd][0] == 0)
 	{
-		free(t);
+		free(t[fd]);
 		return (NULL);
 	}
-	return (t);
+	return (t[fd]);
 }
 
-char	*ft_line(char *str)
+char	*ft_line(char **str, int fd)
 {
 	int		i;
 	char	*line;
 
 	i = 0;
-	if (!str)
+	if (!str[fd])
 		return (NULL);
-	while (str[i] != '\n' && str[i])
+	while (str[fd][i] != '\n' && str[fd][i])
 		i++;
 	line = malloc(i + 2);
 	if (!line)
 	{
-		free(str);
+		free(str[fd]);
 		return (NULL);
 	}
 	i = 0;
-	while (str[i] != '\n' && str[i])
+	while (str[fd][i] != '\n' && str[fd][i])
 	{
-		line[i] = str[i];
+		line[i] = str[fd][i];
 		i++;
 	}
-	line[i] = str[i];
+	line[i] = str[fd][i];
 	line[i + 1] = 0;
 	return (line);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line_bonus(int fd)
 {
 	char		*buffer;
-	static char	*t;
+	static char	**t;
 	char		*line;
 
 	buffer = malloc(BUFFER_SIZE + 1);
 	if (!buffer)
 		return (NULL);
-	t = ft_read(fd, buffer, t);
+	t[fd] = ft_read(fd, buffer, t);
 	free(buffer);
-	line = ft_line(t);
-	t = ft_substr(t, ft_strlen(line), ft_strlen(t) - ft_strlen(line) + 1);
+	line = ft_line(t,fd);
+	t[fd] = ft_substr(t[fd], ft_strlen(line), ft_strlen(t[fd]) - ft_strlen(line) + 1);
 	return (line);
 }
 
-// int main()
-// {
-// 	int fd = open("text.txt",O_RDWR);
-// 	printf("%d\n",fd);
-// 	char *s;
-// 	s = get_next_line(fd);
-// 	while (s)
-// 	{
-// 		printf("%s",s);
-// 		free(s);
-// 		s = get_next_line(fd);
-// 	}
-// 	// free(s);
-// 	// printf("%s",s);
-// 	// free(s);
-// 	while (1);
-// }
+int main()
+{
+	int fd = open("text.txt",O_RDWR);
+	int fd2 = open("t2.txt",O_RDWR);
+	printf("%d\n%d\n", fd, fd2);
+	char *s;
+	// s = get_next_line_bonus(fd);
+	// while (s)
+	// {
+		printf("%s", get_next_line_bonus(fd));
+	// 	free(s);
+	// 	s = get_next_line_bonus(fd);
+	// }
+	// free(s);
+	// printf("%s",s);
+	// free(s);
+	// while (1);
+}
