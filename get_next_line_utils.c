@@ -6,21 +6,11 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:27:10 by aoudija           #+#    #+#             */
-/*   Updated: 2022/11/30 21:01:21 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/12/02 12:38:05 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-size_t	ft_strlen(const char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
@@ -75,6 +65,7 @@ char	*ft_strdup(char *s1)
 	s2[i] = 0;
 	return (s2);
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		len;
@@ -87,11 +78,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
-		return (ft_strdup(s1));
+		return (s1);
 	d = ft_strlen(s1);
 	s = ft_strlen(s2);
 	len = d + s;
-	sj = (char *)malloc(len + 1);
+	sj = malloc(len + 1);
 	if (sj == NULL)
 		return (NULL);
 	ft_strlcpy(sj, s1, d + 1);
@@ -125,33 +116,13 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*sub;
 
-	if (s == 0)
-		return (0);
-	if (start >= ft_strlen(s))
-	{
-		free(s);
-		return (ft_strdup(""));
-	}
+	if (!s)
+		return (NULL);
 	if (len < (ft_strlen(s) - start))
 		sub = malloc(len + 1);
 	else
 		sub = malloc(ft_strlen(s) - start + 1);
-	if (sub == NULL)
+	if (!sub)
 		return (NULL);
 	return (ft_optimize(s, start, sub, len));
-}
-
-char	*ft_strchr(char *s, int c)
-{
-	size_t	i;
-
-	i = 0;
-	c = (char) c;
-	while (i <= ft_strlen(s))
-	{
-		if (s[i] == c)
-			return ((char *)s + i);
-		i++;
-	}
-	return (NULL);
 }
