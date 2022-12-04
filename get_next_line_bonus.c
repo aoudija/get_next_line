@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:04:34 by aoudija           #+#    #+#             */
-/*   Updated: 2022/12/04 08:21:00 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/12/04 10:02:24 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,78 +110,44 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-char *add_char(char *s)
-{
-	char *p = calloc(strlen(s) + 1, 1);
-	int  i = -1;
-	while (s[++i])
-		p[i] = s[i];
-	p[i++] = 0;
-	free(s);
-	return p;
-}
-
 int main()
 {
-	char *p = ft_strdup("1");
-
-	char *s = ft_strdup("1");
-	int j = 0;
-	int  k = 1;
-	int fd[OPEN_MAX + 1];
-	while (j < OPEN_MAX)
-	{
-		fopen(s, "w+");
-		fd[j] = open(s, O_RDWR);
-		write(fd[j], p, strlen(p));
-		s = add_char(ft_itoa(k));
-		p = add_char(p);
-		if (k == 1)
-			p = add_char(p);			
-		// if (k == 10)
-		// 	k = 0;
-		k++;
-		j++;
-	}
+	char	*file_name = ft_strdup("");
+	char	text[10] = "line_test";
+	char	*s = ft_strdup(",");
+	int		i;
+	int		j;
+	int		fd[OPEN_MAX];
+	// i = 1;
+	// j = 0;
+	// char *z = get_next_line(3);
+	// while (j < OPEN_MAX)
+	// {
+	// 	free(file_name);
+	// 	file_name = ft_strjoin(s,ft_itoa(i));
+	// 	fopen(file_name,"w+");
+	// 	fd[j] = open(file_name, O_RDWR);
+	// 	write(fd[j] , text, ft_strlen(text));
+	// 	i++;
+	// 	j++;
+	// }
+	// int	x, y;
+	// x = y = 0;
+	// while (x < OPEN_MAX && y < OPEN_MAX)
+	// {
+	// 	free(file_name);
+	// 	file_name = ft_strjoin(s,ft_itoa(y));
+	// 	fopen(file_name,"w+");
+	// 	fd[x] = open(file_name, O_RDWR);
+	// 	printf("%s\n", get_next_line(fd[x]));
+	// 	x++;
+	// 	y++;
+	// }
+	int fd1 = open(",4897", O_RDONLY);
+	int fd2 = open(",4890", O_RDONLY);
+	printf("%s",get_next_line(fd1));
+	printf("%s",get_next_line(fd2));
+	printf("%s",get_next_line(fd1));
+	printf("%s",get_next_line(fd2));
 	
-	// free(s);
-	j = 0;
-	k = 1;
-	s = ft_strdup("1");
-	while(j < 9000)
-	{
-		fd[j] = open(s, O_RDWR);
-		char *d = get_next_line(fd[j]);
-		while (d)
-		{
-		printf("%s\n", d);
-		free(d);
-		d = get_next_line(fd[j]);
-		}
-		printf("--------------------\n");
-		j++;
-		s = add_char(ft_itoa(k));
-		// if (k == 10)
-		// 	k = 0;
-		k++;
-		usleep(10000);
-	}
-	// int fd = open("text.txt",O_RDWR);
-	// // int fd2 = open("t2.txt",O_RDWR);
-	// char *s;
-	// char *t;
-	// // s = get_next_line_bonus(fd2); 
-	// t = get_next_line_bonus(fd); 
-	// int i = 0;
-	// while (i < 1000)
-	// {
-	// 	open("t")
-	// }
-	// while (s && t)
-	// {
-	// 	printf("%s",s);
-	// 	printf("%s",t);
-	// 	s = get_next_line_bonus(fd2);
-	// 	t = get_next_line_bonus(fd);
-	// }
 }
