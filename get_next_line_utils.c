@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 19:27:10 by aoudija           #+#    #+#             */
-/*   Updated: 2022/12/02 18:58:52 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/12/05 16:50:44 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	if (!s1)
 		return (ft_strdup(s2));
-	if (!s2)
-		return (s1);
 	d = ft_strlen(s1);
 	s = ft_strlen(s2);
 	len = d + s;
@@ -99,7 +97,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	sub = malloc(ft_strlen(s) - start + 1);
+	sub = malloc(len);
 	if (!sub)
 		return (NULL);
 	i = 0;

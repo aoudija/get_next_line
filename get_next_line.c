@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:32:26 by aoudija           #+#    #+#             */
-/*   Updated: 2022/12/02 19:24:22 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:43:53 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ char	*ft_read(int fd, char *buffer, char *t)
 	{
 		i = read(fd, buffer, BUFFER_SIZE);
 		if (i == -1)
-			return (free(t), NULL);
+		{
+			if (t)
+				free(t);
+			return (NULL);
+		}
 		buffer[i] = 0;
 		t = ft_strjoin(t, buffer);
 		if (!t)
@@ -76,10 +80,7 @@ char	*ft_line(char *str)
 		i++;
 	line = malloc(i + 2);
 	if (!line)
-	{
-		free(str);
 		return (NULL);
-	}
 	i = 0;
 	while (str[i] != '\n' && str[i])
 	{
@@ -106,21 +107,3 @@ char	*get_next_line(int fd)
 	t = ft_substr(t, ft_strlen(line), ft_strlen(t) - ft_strlen(line) + 1);
 	return (line);
 }
-
-// int main()
-// {
-// 	int fd = open("text.txt",O_RDWR);
-// 	printf("%d\n",fd);
-// 	char *s;
-// 	s = get_next_line(fd);
-// 	while (s)
-// 	{
-// 		printf("%s",s);
-// 		free(s);
-// 		s = get_next_line(fd);
-// 	}
-// 	// free(s);
-// 	// printf("%s",s);
-// 	// free(s);
-// 	while (1);
-// }

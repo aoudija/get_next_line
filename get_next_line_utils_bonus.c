@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/02 20:30:12 by aoudija           #+#    #+#             */
-/*   Updated: 2022/12/04 09:58:53 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/12/05 14:09:06 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (NULL);
-	sub = malloc(ft_strlen(s) - start + 1);
+	sub = malloc(len);
 	if (!sub)
 		return (NULL);
 	i = 0;

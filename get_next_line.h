@@ -6,7 +6,7 @@
 /*   By: aoudija <aoudija@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 13:31:22 by aoudija           #+#    #+#             */
-/*   Updated: 2022/12/02 20:07:15 by aoudija          ###   ########.fr       */
+/*   Updated: 2022/12/05 17:45:49 by aoudija          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strchr(char *s, int c);
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 1
 # endif
 
 #endif
